@@ -20,6 +20,11 @@ public class Player extends GameObject {
             GameObject tempoObject = handler.object.get(i);
             if (tempoObject.getId() == ID.BasicEnemy){
                 if (getBounds().intersects(tempoObject.getBounds())){
+                    HUD.HEALTH--;
+                }
+            }
+            if (tempoObject.getId() == ID.FastEnemy){
+                if (getBounds().intersects(tempoObject.getBounds())){
                     HUD.HEALTH -=2;
                 }
             }
