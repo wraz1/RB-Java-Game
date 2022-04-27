@@ -15,6 +15,8 @@ public class GameMain extends Canvas implements Runnable{
     private boolean running = false;
     private Handler handler;
     private HUD hud;
+    private Spawn spawner;
+
     public GameMain(){
         new Window(WIDTH, HEIGHT, "This my game", this);
         handler = new Handler();
@@ -25,11 +27,11 @@ public class GameMain extends Canvas implements Runnable{
             handler.addObject(new Player(rand.nextInt(640), rand.nextInt(480), ID.Player));
         }*/
         handler.addObject(new Player(100,100, ID.Player, handler));
-        for (int i = 0; i < 8; i++) {
-            handler.addObject(new BasicEnemy(rand.nextInt(600),rand.nextInt(450), ID.BasicEnemy, handler));
-        }
+        handler.addObject(new BasicEnemy(rand.nextInt(600),rand.nextInt(450), ID.BasicEnemy, handler));
+        
         //handler.addObject(new BasicEnemy(200,100, ID.BasicEnemy, handler));
         hud = new HUD();
+        spawner = new Spawn(handler, hud);
     }
 
     public synchronized void start(){
@@ -77,6 +79,7 @@ public class GameMain extends Canvas implements Runnable{
     private void tick(){
         handler.tick();
         hud.tick();
+        spawner.tick();
     }
     private void render() {
         BufferStrategy bs = this.getBufferStrategy();
